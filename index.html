@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Absen Siswa — Daftar & Presensi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; /* deep slate */
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#3b82f6;
+      --accent-600:#2563eb;
+      --success:#10b981;
+      --danger:#ef4444;
+      --glass: rgba(255,255,255,0.04);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071122 0%, #071629 60%);
+      color:#e6eef6;
+      padding:28px; 
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .container{max-width:980px;margin:0 auto}
+
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    .card{background:linear-gradient(180deg,var(--card), #071018);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(2,6,23,0.6);}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .search{flex:1;min-width:180px}
+    input,select,button{font-family:inherit}
+    input[type="text"], input[type="search"], select{
+      width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:var(--glass);color:inherit;
+    }
+    button{background:var(--accent);border:none;padding:10px 12px;border-radius:8px;color:white;cursor:pointer}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+    .add-form{display:flex;gap:8px}
+    .add-form input{flex:1}
+
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{padding:10px 8px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:14px}
+    th{color:var(--muted);font-weight:600}
+    td.actions{width:190px}
+
+    .status{display:inline-flex;align-items:center;gap:8px;padding:6px 8px;border-radius:999px;font-size:13px}
+    .present{background:rgba(16,185,129,0.12);color:var(--success);border:1px solid rgba(16,185,129,0.12)}
+    .absent{background:rgba(239,68,68,0.08);color:var(--danger);border:1px solid rgba(239,68,68,0.06)}
+
+    .small{font-size:12px;color:var(--muted)}
+    .muted{color:var(--muted)}
+
+    footer{margin-top:14px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:640px){
+      .actions{display:flex;gap:6px;flex-wrap:wrap}
+      td.actions{width:auto}
+      .controls{flex-direction:column}
+      .add-form{flex-direction:column}
+    }
+
+    /* print friendly */
+    @media print{
+      body{background:white;color:black}
+      .card{box-shadow:none;border-radius:0}
+      button, .controls{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Absen Siswa</h1>
+        <p class="lead">Sistem absen sederhana — tandai hadir / tidak hadir dan ekspor hasil.</p>
+      </div>
+      <div class="small muted">Tanggal: <span id="today"></span></div>
+    </header>
+
+    <section class="card">
+      <div class="controls">
+        <div class="search">
+          <input id="search" type="search" placeholder="Cari nama atau NIS...">
+        </div>
+        <div style="width:180px">
+          <select id="filter">
+            <option value="all">Semua</option>
+            <option value="present">Hadir</option>
+            <option value="absent">Tidak Hadir</option>
+            <option value="unknown">Belum Absen</option>
+          </select>
+        </div>
+        <div style
